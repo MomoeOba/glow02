@@ -19,8 +19,6 @@ function speak(sectionId) {
 
     if ('speechSynthesis' in window) {
         const speech = new SpeechSynthesisUtterance(textToSpeak);
-
-        // Detect language and set appropriate voice
         const lang = detectLanguage(textToSpeak);
         const voice = getVoiceByLanguage(lang);
         if (voice) {
@@ -39,7 +37,7 @@ function detectLanguage(text) {
     if (japanesePattern.test(text)) {
         return 'ja-JP';
     } else {
-        return 'en-US'; // Default to English
+        return 'en-US';
     }
 }
 
@@ -48,7 +46,6 @@ function getVoiceByLanguage(lang) {
     return voices.find(v => v.lang === lang);
 }
 
-// Function to save text to local storage
 function saveTextToLocal(textAreaId) {
     const textArea = document.getElementById(textAreaId);
     const text = textArea.value;
@@ -61,7 +58,6 @@ function saveTextToLocal(textAreaId) {
     }
   }
   
-  // Automatically store text in local storage as the user types
   const textAreaSection0 = document.getElementById('section0-text');
   textAreaSection0.addEventListener('input', () => {
     const text = textAreaSection0.value;
@@ -74,7 +70,6 @@ function saveTextToLocal(textAreaId) {
     localStorage.setItem('section2-text', text);
   });
   
-  // Load saved text from local storage on page load
   window.onload = function() {
     const savedTextSection0 = localStorage.getItem('section0-text');
     if (savedTextSection0) {
